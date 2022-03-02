@@ -1,24 +1,23 @@
-import React from "react";
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
+import Comps, { CompTypes } from "./Comps";
 
 function App() {
+  const [compName, setCompName] = useState<CompTypes>("Comp1");
+  const changeComp = () => {
+    setCompName(compName === "Comp1" ? "Comp2" : "Comp1");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {process.env.REACT_APP_ENV_TEST}
-        </a>
-      </header>
+    <div>
+      <button
+        onClick={() => {
+          changeComp();
+        }}
+      >
+        Comp change
+      </button>
+      {Comps[compName]()}
     </div>
   );
 }

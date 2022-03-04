@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import "./App.css";
-import Comps, { CompTypes } from "./Comps";
+import axios from "axios";
 
 function App() {
-  const [compName, setCompName] = useState<CompTypes>("Comp1");
-  const changeComp = () => {
-    setCompName(compName === "Comp1" ? "Comp2" : "Comp1");
+  const postRequest = () => {
+    const dateCheck = new Date();
+    axios.post("postUrl", {
+      dateCheck,
+    });
   };
 
   return (
     <div>
       <button
         onClick={() => {
-          changeComp();
+          postRequest();
         }}
       >
-        Comp change
+        post request
       </button>
-      {Comps[compName]()}
     </div>
   );
 }
 
 export default App;
-
-export { Comps };
-export type { CompTypes };

@@ -37,7 +37,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "rmdir /s /q build && NODE_ENV=production babel ./src/index.ts",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

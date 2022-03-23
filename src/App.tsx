@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './App.css';
 import 'tui-grid/dist/tui-grid.css';
 import Grid from '@toast-ui/react-grid';
+import { CellRendererProps } from 'tui-grid/types/renderer';
 import { Button } from '@mui/material';
 
 function MuiButton() {
@@ -11,18 +12,30 @@ function MuiButton() {
 
 class RendererTest {
 	el: HTMLDivElement;
-	constructor(props: any) {
+	constructor(props: CellRendererProps) {
 		this.el = document.createElement('div');
 
-		this.render();
+		this.render(props);
 	}
 
 	getElement() {
 		return this.el;
 	}
 
-	render() {
-		ReactDOM.render(<MuiButton />, this.el);
+	render(props: CellRendererProps) {
+		if (props.columnInfo.renderer.options) {
+			const { onClickButton } = props.columnInfo.renderer.options;
+			ReactDOM.render(
+				<Button
+					onClick={() => {
+						onClickButton();
+					}}
+				>
+					MuiButton
+				</Button>,
+				this.el,
+			);
+		}
 	}
 }
 
@@ -33,6 +46,11 @@ function App() {
 			name: 'number',
 			renderer: {
 				type: RendererTest,
+				options: {
+					onClickButton: () => {
+						alert('onClick!');
+					},
+				},
 			},
 		},
 		{

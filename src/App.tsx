@@ -1,78 +1,38 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import './App.css';
-import 'tui-grid/dist/tui-grid.css';
-import Grid from '@toast-ui/react-grid';
-import { CellRendererProps } from 'tui-grid/types/renderer';
-import { Button } from '@mui/material';
-
-function MuiButton() {
-	return <Button>MuiButton</Button>;
-}
-
-class RendererTest {
-	el: HTMLDivElement;
-	constructor(props: CellRendererProps) {
-		this.el = document.createElement('div');
-
-		this.render(props);
-	}
-
-	getElement() {
-		return this.el;
-	}
-
-	render(props: CellRendererProps) {
-		if (props.columnInfo.renderer.options) {
-			const { onClickButton } = props.columnInfo.renderer.options;
-			ReactDOM.render(
-				<Button
-					onClick={() => {
-						onClickButton();
-					}}
-				>
-					MuiButton
-				</Button>,
-				this.el,
-			);
-		}
-	}
-}
+import React, { useEffect, useState } from 'react';
 
 function App() {
-	const [columns] = useState([
-		{
-			header: 'NO.',
-			name: 'number',
-			renderer: {
-				type: RendererTest,
-				options: {
-					onClickButton: () => {
-						alert('onClick!');
-					},
-				},
-			},
-		},
-		{
-			header: 'name',
-			name: 'name',
-		},
-	]);
-	const [rowData] = useState([
-		{
-			number: '1',
-			name: 'foo',
-		},
-		{
-			number: '2',
-			name: 'bar',
-		},
-	]);
+	const [firstEffect, setFirstEffect] = useState('first effect');
+	const [secondEffect, setSecondEffect] = useState('second effect');
+
+	// infinity loof!
+	// useEffect(() => {
+	// 	setFirstEffect(firstEffect + ' render');
+	// }, [firstEffect]);
+
+	console.log('Before first render');
+	useEffect(() => {
+		console.log(firstEffect);
+		setSecondEffect(secondEffect + ' render');
+	}, [firstEffect]);
+	console.log('Affter first render');
+
+	console.log('Before first render');
+	useEffect(() => {
+		console.log(secondEffect);
+	}, [secondEffect]);
+	console.log('Affter first render');
+
 	return (
-		<div>
-			<Grid columns={columns} data={rowData} />
-			<MuiButton />
-		</div>
+		<>
+			{console.log('return')}
+			<button
+				onClick={() => {
+					setFirstEffect(firstEffect + ' render');
+				}}
+			>
+				first renderer
+			</button>
+		</>
 	);
 }
 

@@ -1,37 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
-	const [firstEffect, setFirstEffect] = useState('first effect');
-	const [secondEffect, setSecondEffect] = useState('second effect');
-	const [thirdEffect, setThirdEffect] = useState('third effect');
-
-	console.log('first useEffect');
-	useEffect(() => {
-		console.log('first useState');
-		setSecondEffect(secondEffect + ' render');
-	}, [firstEffect]);
-
-	console.log('second useEffect');
-	useEffect(() => {
-		console.log('second useState');
-		console.log(secondEffect);
-		setThirdEffect(thirdEffect + ' render');
-	}, [secondEffect]);
+	const [users, setUsers] = useState([
+		{ name: 'foo', age: 26 },
+		{ name: 'bar', age: 27 },
+	]);
 
 	return (
 		<>
-			{console.log('return')}
-			<button
-				onClick={() => {
-					setFirstEffect(firstEffect + ' render');
-				}}
-			>
-				first renderer
-			</button>
-			<br />
-			{firstEffect} <br />
-			{secondEffect} <br />
-			{thirdEffect} <br />
+			{users.map((user) => {
+				return (
+					<div key={user.name}>
+						<div>{user.name}</div>
+						<div>{user.age}</div>
+					</div>
+				);
+			})}
 		</>
 	);
 }

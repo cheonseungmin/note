@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
+import { Typography } from '@mui/material';
 
 function App() {
-	const [users, setUsers] = useState([
-		{ name: 'foo', age: 26 },
-		{ name: 'bar', age: 27 },
-	]);
-
 	return (
 		<>
-			{users.map((user) => {
-				return (
-					<div key={user.name}>
-						<div>{user.name}</div>
-						<div>{user.age}</div>
-					</div>
-				);
-			})}
+			<Typography component={'span'} display="inline">
+				<div>test</div>
+			</Typography>
 		</>
 	);
 }

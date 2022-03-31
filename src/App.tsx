@@ -1,23 +1,29 @@
-import React from 'react';
-import axios from 'axios';
-import { format } from 'date-fns';
+import React, { useEffect, useState } from 'react';
 
 function App() {
-	const date = new Date('2015-10-12 12:00:00');
+	const [toggle, setToggle] = useState(true);
+	const [count, setCount] = useState(0);
 
-	console.log(date.toJSON());
+	console.log('first');
+	useEffect(() => {
+		console.log('first useEffect');
+		setToggle(false);
+	}, [count]);
+
+	console.log('second');
+	useEffect(() => {
+		console.log('second useEffect');
+	}, [count]);
+
 	return (
 		<>
+			{console.log('render')}
 			<button
 				onClick={() => {
-					const dateFormatting = format(date, 'yyyy-MM-dd hh:mm');
-					const params = {
-						dateFormatting: dateFormatting,
-					};
-					axios.post('url', params);
+					setCount(count + 1);
 				}}
 			>
-				date param test!
+				test order of useEffect
 			</button>
 		</>
 	);
